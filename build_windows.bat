@@ -1,6 +1,8 @@
 @echo off
 
-:check_dependencies
+setlocal
+
+rem Check dependencies
 echo Checking for PyInstaller and PyQt5...
 pyinstaller --version >nul 2>&1
 if %errorlevel% neq 0 (
@@ -14,7 +16,7 @@ if %errorlevel% neq 0 (
     exit /b 1
 )
 
-:build_application
+rem Build application
 set script_name=main.py
 set output_dir=dist
 if not exist "%output_dir%" (
@@ -30,9 +32,7 @@ if %errorlevel% equ 0 (
     echo Build failed. Please check the output for errors.
 )
 
-:main
-call :check_dependencies
-
+rem Main execution
 if not exist "%script_name%" (
     echo The file '%script_name%' does not exist. Please ensure it is in the current directory.
     exit /b 1
@@ -42,5 +42,5 @@ echo Ensure you have the right dependencies installed.
 echo Press Enter to proceed with the build...
 pause
 
-call :build_application
 exit /b
+
